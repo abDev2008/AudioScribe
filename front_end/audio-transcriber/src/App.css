@@ -1,0 +1,131 @@
+/* Root Element */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Main Container */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Header */
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* File Input Container */
+.file-input {
+  margin: 20px 0;
+}
+
+.file-input input {
+  padding: 12px 15px;
+  border: 2px dashed #6a11cb;
+  border-radius: 10px;
+  background: #f7f8fc;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.file-input input:hover {
+  border-color: #2575fc;
+  background: #eef2ff;
+}
+
+/* Upload Button */
+.upload-button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 15px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.upload-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Transcription Result */
+.transcription-result {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f7f8fc;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transcription-result h2 {
+  font-size: 22px;
+  color: #2575fc;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.transcription-result p {
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Add Hover Effect on Entire File Input */
+.file-input input:focus-visible {
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth Transitions */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .upload-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .transcription-result h2 {
+    font-size: 18px;
+  }
+
+  .transcription-result p {
+    font-size: 14px;
+  }
+}

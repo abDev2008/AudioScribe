@@ -24,31 +24,62 @@ public class TranscController {
     private final OpenAiAudioTranscriptionModel transcriptionModel;
 
     public TranscController(@Value("${spring.ai.openai.api-key}") String apiKey) {
-        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(System.getenv(apiKey));
+        System.out.println("*********** "+ apiKey);
+//        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(System.getenv(apiKey));
+//        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(System.getenv(apiKey));
+        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(apiKey);
+
         this.transcriptionModel = new OpenAiAudioTranscriptionModel(openAiAudioApi);
 
     }
-      @PostMapping
-              public ResponseEntity<String> transcribeAudio(
-                      @RequestParam("file")MultipartFile file) throws IOException {
-          File tempFile = File.createTempFile("audio",".wav");
-          file.transferTo(tempFile);
+//      @PostMapping
+//              public ResponseEntity<String> transcribeAudio(
+//                      @RequestParam("file")MultipartFile file) throws IOException {
+//          File tempFile = File.createTempFile("audio",".wav");
+//          file.transferTo(tempFile);
+//
+//          OpenAiAudioTranscriptionOptions transcriptionOptions = OpenAiAudioTranscriptionOptions.builder()
+//                  .withLanguage("en")
+//                  .withTemperature(0f)
+//                  .withResponseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
+//                  .build();
+//          FileSystemResource audioFile = new FileSystemResource(tempFile);
+//
+//          AudioTranscriptionPrompt transcriptionRequest = new AudioTranscriptionPrompt(audioFile, transcriptionOptions);
+//          AudioTranscriptionResponse response = transcriptionModel.call(transcriptionRequest);
+//
+//          tempFile.delete();
+//          return new ResponseEntity<>(response.getResult().getOutput(), HttpStatus.OK);
+//
+//
+//        }
+@PostMapping
+public ResponseEntity<String> transcribeAudio(@RequestParam("file") MultipartFile file) {
+    File tempFile = null;
+    try {
+        tempFile = File.createTempFile("audio", ".wav");
+        file.transferTo(tempFile);
 
-          OpenAiAudioTranscriptionOptions transcriptionOptions = OpenAiAudioTranscriptionOptions.builder()
-                  .withLanguage("en")
-                  .withTemperature(0f)
-                  .withResponseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
-                  .build();
-          FileSystemResource audioFile = new FileSystemResource(tempFile);
-          AudioTranscriptionPrompt transcriptionRequest = new AudioTranscriptionPrompt(audioFile, transcriptionOptions);
-          AudioTranscriptionResponse response = transcriptionModel.call(transcriptionRequest);
+        OpenAiAudioTranscriptionOptions transcriptionOptions = OpenAiAudioTranscriptionOptions.builder()
+                .withLanguage("en")
+                .withTemperature(0f)
+                .withResponseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
+                .build();
+        FileSystemResource audioFile = new FileSystemResource(tempFile);
 
-          tempFile.delete();
-          return new ResponseEntity<>(response.getResult().getOutput(), HttpStatus.OK);
+        AudioTranscriptionPrompt transcriptionRequest = new AudioTranscriptionPrompt(audioFile, transcriptionOptions);
+        AudioTranscriptionResponse response = transcriptionModel.call(transcriptionRequest);
 
-
-
+        return new ResponseEntity<>(response.getResult().getOutput(), HttpStatus.OK);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<>("Failed to process the audio file.", HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+        if (tempFile != null && tempFile.exists()) {
+            tempFile.delete();
         }
+    }
+}
 
 
 

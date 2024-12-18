@@ -20,15 +20,15 @@ const AudioUploader = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/transcribe", // Correct endpoint
+        "http://localhost:8080/api/transcribe",
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Fixed "headers" capitalization
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      setTranscription(response.data); // Set the transcription response
+      setTranscription(response.data);
     } catch (error) {
       console.error("Error transcribing file: ", error);
       alert("There was an error transcribing the file. Please try again.");

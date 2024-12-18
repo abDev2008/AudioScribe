@@ -25,34 +25,13 @@ public class TranscController {
 
     public TranscController(@Value("${spring.ai.openai.api-key}") String apiKey) {
         System.out.println("*********** "+ apiKey);
-//        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(System.getenv(apiKey));
-//        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(System.getenv(apiKey));
+
         OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(apiKey);
 
         this.transcriptionModel = new OpenAiAudioTranscriptionModel(openAiAudioApi);
 
     }
-//      @PostMapping
-//              public ResponseEntity<String> transcribeAudio(
-//                      @RequestParam("file")MultipartFile file) throws IOException {
-//          File tempFile = File.createTempFile("audio",".wav");
-//          file.transferTo(tempFile);
-//
-//          OpenAiAudioTranscriptionOptions transcriptionOptions = OpenAiAudioTranscriptionOptions.builder()
-//                  .withLanguage("en")
-//                  .withTemperature(0f)
-//                  .withResponseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
-//                  .build();
-//          FileSystemResource audioFile = new FileSystemResource(tempFile);
-//
-//          AudioTranscriptionPrompt transcriptionRequest = new AudioTranscriptionPrompt(audioFile, transcriptionOptions);
-//          AudioTranscriptionResponse response = transcriptionModel.call(transcriptionRequest);
-//
-//          tempFile.delete();
-//          return new ResponseEntity<>(response.getResult().getOutput(), HttpStatus.OK);
-//
-//
-//        }
+
 @PostMapping
 public ResponseEntity<String> transcribeAudio(@RequestParam("file") MultipartFile file) {
     File tempFile = null;
